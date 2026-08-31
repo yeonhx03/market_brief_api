@@ -104,3 +104,78 @@ as FinBERT inference; actual FinBERT CPU inference remains verified in the Windo
 
 The Spring process, isolated PostgreSQL server, database, and temporary data directory were stopped
 and removed after verification. The Homebrew PostgreSQL service was not enabled.
+
+## 2026-08-31 Article-Ticker-Insight Verification
+
+Environment:
+
+- Spring Boot on `127.0.0.1:18081`
+- Homebrew PostgreSQL 17.11 on an isolated temporary cluster and port `55433`
+- a controlled two-item RSS fixture served only on `127.0.0.1:18765`
+- Python `market_brief` branch `ticker-http-integration` at `c7c1292`
+- Spring and React branch `codex/web-api-integration` at `029bb11`
+
+The fixture articles were explicitly linked with `--ticker AAPL`. This ticker was user-supplied
+collection metadata, not an automatic relevance classification. The fixture was not represented as
+real AAPL news.
+
+The first Python collection called `POST /api/articles` and then
+`POST /api/articles/{articleId}/tickers` for each item. PostgreSQL contained:
+
+```text
+Flyway migrations: 6, latest version: 6
+Articles: 2
+Article tickers: 2
+Article analyses before the isolated insight fixture: 0
+```
+
+Collecting the same feed again reported `Saved 0 new articles.` Spring returned the existing article
+ID for each ordinary duplicate, Python repeated the ticker association, and the composite primary key
+on `article_tickers (article_id, ticker)` kept the operation idempotent. The final article and ticker
+counts remained 2 and 2.
+
+### Isolated Insight Contract
+
+Before any analysis rows existed, `GET /api/tickers/AAPL/insight?limit=10` returned
+`404 TICKER_INSIGHT_NOT_FOUND` even though two articles were linked to AAPL.
+
+Three fixed-probability `text_sentiment` rows were then written through
+`POST /api/articles/{articleId}/analyses`:
+
+- article 1: an older `0.8 / 0.1 / 0.1` row
+- article 1: a newer `0.2 / 0.7 / 0.1` row
+- article 2: a `0.4 / 0.3 / 0.3` row
+
+The test analyzer name was `e2e-fixed-fixture`. These constructed probabilities exercised HTTP,
+validation, JPA, PostgreSQL, the ticker insight query, and the React response contract. They were not
+FinBERT inference results.
+
+The AAPL insight returned two articles and averaged only the latest `text_sentiment` row for each
+article:
+
+```text
+Positive: 0.30
+Neutral:  0.50
+Negative: 0.20
+Data as of: 2026-08-31T08:00:00Z
+```
+
+`limit=1` returned only the most recently published linked article. A ticker without insight data
+returned `404 TICKER_INSIGHT_NOT_FOUND`. The React API and component tests verified the same response
+shape, percentage display, related-news metadata, and the notice that sentence sentiment is not a
+trading signal.
+
+### Remaining FinBERT And Concurrent-Conflict Limits
+
+PyTorch and Transformers were not installed on this macOS environment, and no model dependency was
+added. Actual FinBERT inference therefore remains a separate supported-runtime verification step.
+
+Ordinary duplicates return `existingArticleId`, but a database unique constraint violation caused by
+a true concurrent insert is currently mapped to `409 ARTICLE_DUPLICATE` with a null ID. A stable ID
+would require separating the failed insert transaction from a new duplicate-resolution read transaction
+and verifying the result with concurrent requests against PostgreSQL. No unverified lookup or fallback
+was added during this run.
+
+The complete Spring test suite, all 35 React tests, the React production build, 31 ticker-related Python
+tests, and Ruff passed. The Spring process, controlled feed server, isolated PostgreSQL server, database,
+and temporary directory were removed after verification.
