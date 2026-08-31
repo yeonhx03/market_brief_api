@@ -1,0 +1,27 @@
+:root {
+  font-family: Inter, Pretendard, system-ui, sans-serif;
+  color: #d8dde8;
+  background: #090c12;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  margin: 0;
+  background: #090c12;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+#root {
+  min-height: 100vh;
+}
