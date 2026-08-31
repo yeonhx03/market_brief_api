@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -23,6 +24,15 @@ public class ArticleController {
 
     public ArticleController(ArticleService articleService) {
         this.articleService = articleService;
+    }
+
+    @PostMapping("/{articleId}/tickers")
+    ResponseEntity<Void> addTicker(
+            @PathVariable Long articleId,
+            @Valid @RequestBody AddArticleTickerRequest request
+    ) {
+        articleService.addTicker(articleId, request.ticker());
+        return ResponseEntity.noContent().build();
     }
 
     @PostMapping

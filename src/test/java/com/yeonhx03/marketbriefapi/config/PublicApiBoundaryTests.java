@@ -43,6 +43,17 @@ class PublicApiBoundaryTests {
     }
 
     @Test
+    void rejectsArticleTickerWriteWithoutApiKey() throws Exception {
+        mockMvc.perform(post("/api/articles/1/tickers")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"ticker":"AAPL"}
+                                """))
+                .andExpect(status().isUnauthorized())
+                .andExpect(jsonPath("$.code").value("UNAUTHORIZED"));
+    }
+
+    @Test
     void rejectsWriteWithWrongApiKey() throws Exception {
         mockMvc.perform(post("/api/articles")
                         .header(WriteApiKeyInterceptor.HEADER_NAME, "wrong-secret")

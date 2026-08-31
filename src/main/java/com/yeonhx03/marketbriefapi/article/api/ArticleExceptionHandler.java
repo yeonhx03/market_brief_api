@@ -1,6 +1,7 @@
 package com.yeonhx03.marketbriefapi.article.api;
 
 import com.yeonhx03.marketbriefapi.article.application.DuplicateArticleException;
+import com.yeonhx03.marketbriefapi.article.application.ArticleNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +10,18 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 @RestControllerAdvice(assignableTypes = ArticleController.class)
 public class ArticleExceptionHandler {
+
+    @ExceptionHandler(ArticleNotFoundException.class)
+    ResponseEntity<ArticleNotFoundErrorResponse> handleArticleNotFound(
+            ArticleNotFoundException exception
+    ) {
+        var error = new ArticleNotFoundErrorResponse(
+                "ARTICLE_NOT_FOUND",
+                "Article not found",
+                exception.getArticleId()
+        );
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+    }
 
     @ExceptionHandler(DuplicateArticleException.class)
     ResponseEntity<ArticleErrorResponse> handleDuplicateArticle(

@@ -2,6 +2,7 @@ package com.yeonhx03.marketbriefapi.article.api;
 
 import com.yeonhx03.marketbriefapi.article.application.ArticleService;
 import com.yeonhx03.marketbriefapi.article.application.DuplicateArticleException;
+import com.yeonhx03.marketbriefapi.article.application.ArticleNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -17,6 +18,7 @@ import java.util.List;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
+import static org.mockito.BDDMockito.willThrow;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -88,6 +90,46 @@ class ArticleControllerTests {
                 .andExpect(status().isBadRequest());
 
         then(articleService).shouldHaveNoInteractions();
+    }
+
+    @Test
+    void associatesTickerWithArticle() throws Exception {
+        mockMvc.perform(post("/api/articles/42/tickers")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"ticker":"aapl"}
+                                """))
+                .andExpect(status().isNoContent());
+
+        then(articleService).should().addTicker(42L, "aapl");
+    }
+
+    @Test
+    void rejectsInvalidArticleTicker() throws Exception {
+        mockMvc.perform(post("/api/articles/42/tickers")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"ticker":"AAPL!"}
+                                """))
+                .andExpect(status().isBadRequest());
+
+        then(articleService).shouldHaveNoInteractions();
+    }
+
+    @Test
+    void returnsNotFoundWhenAssociatingUnknownArticle() throws Exception {
+        willThrow(new ArticleNotFoundException(42L))
+                .given(articleService).addTicker(42L, "AAPL");
+
+        mockMvc.perform(post("/api/articles/42/tickers")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {"ticker":"AAPL"}
+                                """))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.code").value("ARTICLE_NOT_FOUND"))
+                .andExpect(jsonPath("$.message").value("Article not found"))
+                .andExpect(jsonPath("$.articleId").value(42));
     }
 
     @Test

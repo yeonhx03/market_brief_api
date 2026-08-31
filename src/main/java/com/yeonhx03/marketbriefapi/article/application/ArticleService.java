@@ -9,5 +9,7 @@ public interface ArticleService {
 
     ArticleResponse create(CreateArticleRequest request);
 
+    void addTicker(Long articleId, String ticker);
+
     List<ArticleResponse> findLatest(int limit);
 }

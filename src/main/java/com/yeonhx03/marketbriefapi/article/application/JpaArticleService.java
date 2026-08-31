@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Locale;
 
 @Service
 class JpaArticleService implements ArticleService {
@@ -17,6 +18,14 @@ class JpaArticleService implements ArticleService {
 
     JpaArticleService(ArticleRepository articleRepository) {
         this.articleRepository = articleRepository;
+    }
+
+    @Override
+    @Transactional
+    public void addTicker(Long articleId, String ticker) {
+        var article = articleRepository.findById(articleId)
+                .orElseThrow(() -> new ArticleNotFoundException(articleId));
+        article.addTicker(ticker.toUpperCase(Locale.ROOT));
     }
 
     @Override
