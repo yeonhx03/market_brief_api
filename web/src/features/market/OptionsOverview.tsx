@@ -40,8 +40,8 @@ export function OptionsOverview() {
 
           <tbody>
             {options.map((option) => (
-              <tr key={option.symbol}>
-                <th scope="row">{option.symbol}</th>
+              <tr key={option.ticker}>
+                <th scope="row">{option.ticker}</th>
                 <td>{(option.iv30Day * 100).toFixed(1)}%</td>
                 <td>{option.putCallRatio.toFixed(2)}</td>
                 <td>

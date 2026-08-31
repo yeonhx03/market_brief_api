@@ -17,13 +17,13 @@ describe('MarketIndexes', () => {
   it('displays formatted index values and change directions', async () => {
     mockedGetMarketIndexes.mockResolvedValue([
       {
-        symbol: 'SPX',
+        ticker: 'SPX',
         name: 'S&P 500',
         value: 6481.32,
         changePercent: 0.42,
       },
       {
-        symbol: 'DJI',
+        ticker: 'DJI',
         name: 'DOW',
         value: 45544.88,
         changePercent: -0.21,

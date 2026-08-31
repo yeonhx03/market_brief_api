@@ -21,13 +21,13 @@ describe('MarketHeatmap', () => {
         sectorName: '기술',
         stocks: [
           {
-            symbol: 'NVDA',
+            ticker: 'NVDA',
             companyName: 'NVIDIA',
             marketCapWeight: 6.8,
             changePercent: 2.41,
           },
           {
-            symbol: 'AAPL',
+            ticker: 'AAPL',
             companyName: 'Apple',
             marketCapWeight: 5.9,
             changePercent: -0.84,
@@ -39,7 +39,7 @@ describe('MarketHeatmap', () => {
         sectorName: '소비재',
         stocks: [
           {
-            symbol: 'AMZN',
+            ticker: 'AMZN',
             companyName: 'Amazon',
             marketCapWeight: 3.2,
             changePercent: -1.12,

@@ -32,7 +32,7 @@ export function MarketIndexes() {
           const changeSign = isPositive ? '+' : ''
 
           return (
-            <li className="market-index-card" key={index.symbol}>
+            <li className="market-index-card" key={index.ticker}>
               <span>{index.name}</span>
               <strong>{index.value.toLocaleString('ko-KR')}</strong>
               <span className={isPositive ? 'positive' : 'negative'}>

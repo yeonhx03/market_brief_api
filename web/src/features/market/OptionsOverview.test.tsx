@@ -17,7 +17,7 @@ describe('OptionsOverview', () => {
   it('displays option metrics, delay, and data timestamp', async () => {
     mockedGetOptionSnapshots.mockResolvedValue([
       {
-        symbol: 'SOXX',
+        ticker: 'SOXX',
         iv30Day: 0.428,
         putCallRatio: 0.91,
         expectedLow: 277.34,

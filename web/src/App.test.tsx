@@ -13,6 +13,8 @@ vi.mock('./api/market', () => ({
   getMarketHeatmap: vi.fn(),
   getMarketIndexes: vi.fn(),
   getOptionSnapshots: vi.fn(),
+  getTickerQuote: vi.fn(),
+  searchTickers: vi.fn(),
 }))
 
 const mockedGetMarketClocks = vi.mocked(getMarketClocks)

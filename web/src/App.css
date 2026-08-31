@@ -235,3 +235,99 @@ h2 {
   font-size: 0.7rem;
   text-align: right;
 }
+
+
+/* 종목 검색 */
+.ticker-search {
+  position: relative;
+  margin-bottom: 0.75rem;
+}
+
+.ticker-search label {
+  display: block;
+  margin-bottom: 0.3rem;
+  color: #98a2b5;
+  font-size: 0.7rem;
+}
+
+.ticker-search input {
+  width: 100%;
+  padding: 0.65rem;
+  color: #f2f5fa;
+  background: #0d121b;
+  border: 1px solid #3a4352;
+}
+
+.ticker-results {
+  margin: 0.25rem 0 0;
+  padding: 0;
+  list-style: none;
+  border: 1px solid #3a4352;
+}
+
+.ticker-results button {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr auto;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.6rem;
+  color: #d8dde8;
+  text-align: left;
+  background: #111722;
+  border: 0;
+  cursor: pointer;
+}
+
+.ticker-results button:hover {
+  background: #202838;
+}
+
+.ticker-summary {
+  display: grid;
+  gap: 0.3rem;
+  min-height: 6rem;
+  margin-bottom: 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid #29303d;
+}
+
+
+/* 종목 시세 정보 */
+.ticker-summary header,
+.ticker-summary dl > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.ticker-summary h3 {
+  margin: 0;
+  color: #f3c969;
+  font-size: 1.1rem;
+}
+
+.ticker-summary header strong {
+  color: #f2f5fa;
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.ticker-summary dl {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0.75rem 0;
+}
+
+.ticker-summary dt {
+  color: #7f899c;
+}
+
+.ticker-summary dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.ticker-summary small {
+  color: #7f899c;
+}

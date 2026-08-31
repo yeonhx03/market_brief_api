@@ -54,14 +54,14 @@ export function MarketHeatmap() {
                 {sector.stocks.map((stock) => (
                   <li
                     className="heatmap-stock"
-                    key={stock.symbol}
+                    key={stock.ticker}
                     style={{
                       flexGrow: stock.marketCapWeight,
                       backgroundColor: getChangeColor(stock.changePercent),
                     }}
                     aria-label={`${stock.companyName} ${stock.changePercent}%`}
                   >
-                    <strong>{stock.symbol}</strong>
+                    <strong>{stock.ticker}</strong>
                     <span>
                       {stock.changePercent > 0 ? '+' : ''}
                       {stock.changePercent.toFixed(2)}%

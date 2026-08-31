@@ -1,13 +1,22 @@
+import { useState } from 'react'
 import { MarketHeader } from '../components/MarketHeader'
 import { MarketHeatmap } from '../features/market/MarketHeatmap'
-import type { MarketClock } from '../types/market'
 import { MarketIndexes } from '../features/market/MarketIndexes'
 import { OptionsOverview } from '../features/market/OptionsOverview'
+import { TickerSearch } from '../features/search/TickerSearch'
+import { TickerSummary } from '../features/quote/TickerSummary'
+import type { MarketClock, TickerSearchResult } from '../types/market'
+
+
 type DashboardPageProps = {
   clocks: MarketClock[]
 }
 
 export function DashboardPage({ clocks }: DashboardPageProps) {
+
+  const [selectedTicker, setSelectedTicker] =
+    useState<TickerSearchResult | null>(null)
+  
   return (
     <div className="dashboard">
       <MarketHeader clocks={clocks} />
@@ -30,8 +39,19 @@ export function DashboardPage({ clocks }: DashboardPageProps) {
         >
           <h2 id="briefing-panel-title">종목 브리핑</h2>
 
-          <div className="placeholder">종목 검색</div>
-          <div className="placeholder">종목 요약</div>
+          <TickerSearch onSelect={setSelectedTicker} />
+
+          {selectedTicker ? (
+            <TickerSummary
+              key={selectedTicker.ticker}
+              selection={selectedTicker}
+            />
+          ) : (
+            <div className="ticker-summary">
+              <span>종목을 선택해 주세요.</span>
+            </div>
+          )}
+
           <div className="placeholder placeholder-large">최신 브리핑</div>
         </aside>
       </main>
