@@ -1,21 +1,34 @@
 import { render, screen } from '@testing-library/react'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
-import { getMarketClocks, getMarketIndexes } from './api/market'
+import {
+  getMarketClocks,
+  getMarketHeatmap,
+  getMarketIndexes,
+  getOptionSnapshots,
+} from './api/market'
 import App from './App'
 
 vi.mock('./api/market', () => ({
   getMarketClocks: vi.fn(),
+  getMarketHeatmap: vi.fn(),
   getMarketIndexes: vi.fn(),
+  getOptionSnapshots: vi.fn(),
 }))
 
 const mockedGetMarketClocks = vi.mocked(getMarketClocks)
+const mockedGetMarketHeatmap = vi.mocked(getMarketHeatmap)
 const mockedGetMarketIndexes = vi.mocked(getMarketIndexes)
+const mockedGetOptionSnapshots = vi.mocked(getOptionSnapshots)
 
 describe('App', () => {
   beforeEach(() => {
     mockedGetMarketClocks.mockReset()
+    mockedGetMarketHeatmap.mockReset()
     mockedGetMarketIndexes.mockReset()
+    mockedGetOptionSnapshots.mockReset()
+    mockedGetMarketHeatmap.mockResolvedValue([])
     mockedGetMarketIndexes.mockResolvedValue([])
+    mockedGetOptionSnapshots.mockResolvedValue([])
   })
 
   it('loads and displays the market clocks', async () => {

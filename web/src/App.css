@@ -127,3 +127,111 @@ h2 {
 .negative {
   color: #ef6262;
 }
+
+/* 히트맵 현황 */
+.heatmap-sectors {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  min-height: 18rem;
+  margin: 0 0 0.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+.heatmap-sector {
+  flex-basis: 16rem;
+  min-width: 14rem;
+  padding: 0.25rem;
+  border: 1px solid #3a4352;
+  background: #0d121b;
+}
+
+.heatmap-sector h4 {
+  margin: 0 0 0.25rem;
+  color: #aab3c3;
+  font-size: 0.7rem;
+}
+
+.heatmap-stocks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem;
+  height: calc(100% - 1.2rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.heatmap-stock {
+  flex-basis: 5rem;
+  min-height: 5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #f5f7fa;
+  font-size: 0.72rem;
+}
+
+.heatmap-stock strong {
+  font-size: 0.9rem;
+}
+
+@media (max-width: 900px) {
+  .heatmap-sectors {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .heatmap-sector {
+    min-width: 0;
+  }
+}
+
+/* 옵션 현황 */ 
+.options-table-wrapper {
+  overflow-x: auto;
+  border: 1px solid #29303d;
+}
+
+.options-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.options-table th,
+.options-table td {
+  padding: 0.65rem;
+  text-align: right;
+  white-space: nowrap;
+  border-bottom: 1px solid #29303d;
+}
+
+.options-table th:first-child,
+.options-table td:first-child {
+  text-align: left;
+}
+
+.options-table thead {
+  color: #98a2b5;
+  background: #111722;
+}
+
+.options-table tbody th {
+  color: #f3c969;
+}
+
+.options-table tbody tr:last-child th,
+.options-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.data-timestamp {
+  margin: 0.4rem 0 0.75rem;
+  color: #7f899c;
+  font-size: 0.7rem;
+  text-align: right;
+}

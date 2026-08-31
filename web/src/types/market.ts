@@ -14,3 +14,25 @@ export type MarketIndexSummary = {
     changePercent: number
 }
 
+export type MarketHeatmapStock = {
+  symbol: string
+  companyName: string
+  marketCapWeight: number
+  changePercent: number
+}
+
+export type MarketHeatmapSector = {
+  sectorId: string
+  sectorName: string
+  stocks: MarketHeatmapStock[]
+}
+
+export type OptionSnapshot = {
+    symbol: string
+    iv30Day: number
+    putCallRatio: number
+    expectedLow: number
+    expectedHigh: number
+    dataAsOf: string
+    delayMinutes: number
+}

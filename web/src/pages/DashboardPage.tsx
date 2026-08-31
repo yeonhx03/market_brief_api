@@ -1,7 +1,8 @@
 import { MarketHeader } from '../components/MarketHeader'
+import { MarketHeatmap } from '../features/market/MarketHeatmap'
 import type { MarketClock } from '../types/market'
-import {MarketIndexes} from '../features/market/MarketIndexes'
-
+import { MarketIndexes } from '../features/market/MarketIndexes'
+import { OptionsOverview } from '../features/market/OptionsOverview'
 type DashboardPageProps = {
   clocks: MarketClock[]
 }
@@ -19,8 +20,8 @@ export function DashboardPage({ clocks }: DashboardPageProps) {
           <h2 id="market-overview-title">시장 현황</h2>
 
           <MarketIndexes />
-          <div className="placeholder placeholder-large">시장 히트맵</div>
-          <div className="placeholder">옵션 현황</div>
+          <MarketHeatmap />
+          <OptionsOverview />
         </section>
 
         <aside
