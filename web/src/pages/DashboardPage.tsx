@@ -6,6 +6,8 @@ import { OptionsOverview } from '../features/market/OptionsOverview'
 import { TickerSearch } from '../features/search/TickerSearch'
 import { TickerSummary } from '../features/quote/TickerSummary'
 import type { MarketClock, TickerSearchResult } from '../types/market'
+import { TickerInsightPanel } from '../features/insight/TickerInsightPanel'
+import { TickerBriefingPanel } from '../features/briefing/TickerBriefingPanel'
 
 
 type DashboardPageProps = {
@@ -52,7 +54,23 @@ export function DashboardPage({ clocks }: DashboardPageProps) {
             </div>
           )}
 
-          <div className="placeholder placeholder-large">최신 브리핑</div>
+          {selectedTicker && (
+            <TickerInsightPanel
+              key={selectedTicker.ticker}
+              ticker={selectedTicker.ticker}
+            />
+          )}
+
+          {selectedTicker ? (
+            <TickerBriefingPanel
+              key={selectedTicker.ticker}
+              ticker={selectedTicker.ticker}
+            />
+          ) : (
+            <div className="ticker-briefing">
+              브리핑을 확인할 종목을 선택해 주세요.
+            </div>
+          )}
         </aside>
       </main>
     </div>

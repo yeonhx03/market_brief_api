@@ -331,3 +331,115 @@ h2 {
 .ticker-summary small {
   color: #7f899c;
 }
+
+
+/*종목 감성분석 결과*/
+.ticker-insight {
+  margin-bottom: 0.75rem;
+  padding: 0.75rem;
+  border: 1px solid #29303d;
+}
+
+.insight-meta,
+.sentiment-notice {
+  color: #7f899c;
+  font-size: 0.7rem;
+}
+
+.ticker-news-list {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0.75rem 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ticker-news-list li {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.ticker-news-list a {
+  color: #d8dde8;
+  text-decoration: none;
+}
+
+.ticker-news-list small {
+  color: #7f899c;
+}
+
+.sentiment-scores {
+  display: grid;
+  gap: 0.4rem;
+}
+
+.sentiment-scores > div,
+.sentiment-scores dd {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sentiment-scores dt {
+  width: 2rem;
+}
+
+.sentiment-scores dd {
+  flex: 1;
+  margin: 0;
+}
+
+.sentiment-scores progress {
+  width: 100%;
+}
+
+progress.positive {
+  accent-color: #35c78a;
+}
+
+progress.neutral {
+  accent-color: #98a2b5;
+}
+
+progress.negative {
+  accent-color: #ef6262;
+}
+
+/* 종목 뉴스 브리핑 */
+.ticker-briefing {
+  min-height: 12rem;
+  padding: 0.75rem;
+  border: 1px solid #29303d;
+}
+
+.ticker-briefing h3,
+.ticker-briefing h4 {
+  margin: 0 0 0.6rem;
+}
+
+.ticker-briefing p {
+  color: #d8dde8;
+  line-height: 1.6;
+}
+
+.ticker-briefing ul {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0 0 0.75rem;
+  padding: 0;
+  list-style: none;
+}
+
+.ticker-briefing li {
+  display: grid;
+  gap: 0.2rem;
+}
+
+.ticker-briefing a {
+  color: #d8dde8;
+  text-decoration: none;
+}
+
+.ticker-briefing small {
+  color: #7f899c;
+}
