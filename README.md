@@ -1,4 +1,6 @@
-# 시장 브리핑 웹 Market Brief
+# # 시장 브리핑 웹 Market Brief
+<img width="1112" height="720" alt="market_brief_image" src="https://github.com/user-attachments/assets/a466e27f-a36b-4a51-8e33-7b51b12729be" />
+<img width="800" height="900" alt="finbert" src="https://github.com/user-attachments/assets/c43dc437-2788-4ad8-a18b-00fc0b670676" />
 
 ## 프로젝트 소개
 
